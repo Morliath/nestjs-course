@@ -16,7 +16,7 @@ export class CoursesHttpService {
     }
 
     findAllCourses(): Observable<Course[]> {
-        return this.http.get<Course[]>('/api/courses')
+        return this.http.get<Course[]>('/api/v1/courses')
           .pipe(
             map(courses => courses.sort(compareCourses))
           );
