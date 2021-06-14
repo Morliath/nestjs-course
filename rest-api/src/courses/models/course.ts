@@ -1,6 +1,6 @@
+import { Document } from 'mongoose';
 
-export interface Course {
-  _id: string;
+export interface CourseDoc extends Document {
   seqNo:number;
   url:string;
   iconUrl: string;
@@ -13,7 +13,7 @@ export interface Course {
 }
 
 
-export function compareCourses(c1:Course, c2: Course) {
+export function compareCourses(c1:CourseDoc, c2: CourseDoc) {
 
   const compare = c1.seqNo - c2.seqNo;
 

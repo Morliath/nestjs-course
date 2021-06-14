@@ -15,8 +15,7 @@ import { CoursesRepository } from "./repositories/courses.repository";
     ],
     providers: [
         CoursesRepository,
-    ],
-    exports: [MongooseModule],
+    ]
 })
 export class CoursesModule {
 

@@ -5,8 +5,8 @@ import { CoursesModule } from "./courses/courses.module";
 
 @Module({
     imports: [
-        CoursesModule,
         MongooseModule.forRoot(MONGO_URI),
+        CoursesModule,
     ]
 })
 

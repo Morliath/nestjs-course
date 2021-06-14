@@ -1,5 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
-import { Course } from "../../../../shared/course"
+import { CourseDoc } from "../models/course";
 import { CoursesRepository } from "../repositories/courses.repository";
 
 @Controller("/api/v1")
@@ -11,7 +11,7 @@ export class CoursesController {
     }
 
     @Get('/courses')
-    async findAllCourses(): Promise<Course[]> {
+    async findAllCourses(): Promise<CourseDoc[]> {
 
         return this.coursesRepository.findAll();
     }
