@@ -1,4 +1,4 @@
-import {findAllCourses, findAllUsers, findLessonsForCourse} from './db-data';
+import { findAllCourses, findAllUsers, findLessonsForCourse } from './db-data';
 
 const util = require('util');
 
@@ -25,7 +25,7 @@ var ObjectId = require('mongodb').ObjectID;
 *
 *****************************************************************************************************/
 
-const MONGODB_CONNECTION_URL = 'mongodb+srv://nestjs:ZeEjdswOWHwoenQO@cluster0-dbucq.gcp.mongodb.net';
+const MONGODB_CONNECTION_URL = 'mongodb://root:rootpassword@127.0.0.1:27017/nestjs-course?authSource=admin&w=1';
 
 // Database Name
 const dbName = 'nestjs-course';
@@ -44,6 +44,8 @@ client.connect(async (err, client) => {
 
     if (err) {
       console.log("Error connecting to database, please check the username and password, exiting.");
+      console.log(err);
+
       process.exit();
     }
 
@@ -55,12 +57,12 @@ client.connect(async (err, client) => {
 
     for (let i = 0; i < courses.length; i++) {
 
-      const course:any = courses[i];
+      const course: any = courses[i];
 
-      const newCourse: any = {...course};
+      const newCourse: any = { ...course };
       delete newCourse.id;
 
-      console.log("Inserting course ",  newCourse);
+      console.log("Inserting course ", newCourse);
 
       const result = await db.collection('courses').insertOne(newCourse);
 
@@ -70,11 +72,11 @@ client.connect(async (err, client) => {
 
       const lessons = findLessonsForCourse(course.id);
 
-      for (let j = 0; j< lessons.length; j++) {
+      for (let j = 0; j < lessons.length; j++) {
 
         const lesson = lessons[j];
 
-        const newLesson:any = {...lesson};
+        const newLesson: any = { ...lesson };
         delete newLesson.id;
         delete newLesson.courseId;
         newLesson.course = new ObjectId(courseId);
@@ -91,11 +93,11 @@ client.connect(async (err, client) => {
 
     console.log("Inserting users " + users.length);
 
-    for (let j = 0; j< users.length; j++) {
+    for (let j = 0; j < users.length; j++) {
 
       const user = users[j];
 
-      const newUser:any = {...user};
+      const newUser: any = { ...user };
       delete newUser.id;
 
       const hashPassword = util.promisify(password(newUser.password).hash);
@@ -112,7 +114,7 @@ client.connect(async (err, client) => {
 
     console.log('Finished uploading data, creating indexes.');
 
-    await db.collection('courses').createIndex( { "url": 1 }, { unique: true } );
+    await db.collection('courses').createIndex({ "url": 1 }, { unique: true });
 
     console.log("Finished creating indexes, exiting.");
 
@@ -122,6 +124,7 @@ client.connect(async (err, client) => {
   }
   catch (error) {
     console.log("Error caught, exiting: ", error);
+
     client.close();
     process.exit();
   }

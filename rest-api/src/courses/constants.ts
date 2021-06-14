@@ -1,0 +1,1 @@
+export const MONGO_URI = 'mongodb://root:rootpassword@127.0.0.1:27017/nestjs-course?authSource=admin&w=1';

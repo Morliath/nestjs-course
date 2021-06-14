@@ -1,13 +1,18 @@
 import { Controller, Get } from "@nestjs/common";
-import { findAllCourses } from "../../../db-data";
 import { Course } from "../../../../shared/course"
+import { CoursesRepository } from "../repositories/courses.repository";
 
-@Controller()
+@Controller("/api/v1")
 export class CoursesController {
 
-    @Get('/api/v1/courses')
+    constructor(private coursesRepository: CoursesRepository) {
+        console.log("Courses controller build");
+        console.log(this.coursesRepository);
+    }
+
+    @Get('/courses')
     async findAllCourses(): Promise<Course[]> {
 
-        return findAllCourses();
+        return this.coursesRepository.findAll();
     }
 }
