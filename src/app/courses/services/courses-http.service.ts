@@ -1,5 +1,3 @@
-
-
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -7,6 +5,7 @@ import {compareCourses, Course} from '../../../../shared/course';
 import {map} from "rxjs/operators";
 import {Lesson} from "../../../../shared/lesson";
 
+const BACK_END_URL = '/api/v1/courses/' ;
 
 @Injectable()
 export class CoursesHttpService {
@@ -16,14 +15,14 @@ export class CoursesHttpService {
     }
 
     findAllCourses(): Observable<Course[]> {
-        return this.http.get<Course[]>('/api/v1/courses')
+        return this.http.get<Course[]>(BACK_END_URL)
           .pipe(
             map(courses => courses.sort(compareCourses))
           );
     }
 
     findCourseByUrl(courseUrl: string): Observable<Course> {
-      return this.http.get<Course>(`/api/courses/${courseUrl}`);
+      return this.http.get<Course>(`${BACK_END_URL}${courseUrl}`);
     }
 
     findLessons(
@@ -41,15 +40,15 @@ export class CoursesHttpService {
 
 
     updateCourse(courseId: string, changes: Partial<Course>) {
-        return this.http.put('/api/courses/' + courseId, changes);
+        return this.http.put(BACK_END_URL + courseId, changes);
     }
 
 
   deleteCourse(courseId: string) {
-      return this.http.delete('/api/courses/' + courseId);
+      return this.http.delete(BACK_END_URL + courseId);
   }
 
   createCourse(changes: Partial<Course>) {
-      return this.http.post('/api/courses', changes);
+      return this.http.post(BACK_END_URL, changes);
   }
 }

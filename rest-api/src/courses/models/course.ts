@@ -1,6 +1,5 @@
-import { Document } from 'mongoose';
-
-export interface CourseDoc extends Document {
+export interface CourseDoc {
+  _id: string;
   seqNo:number;
   url:string;
   iconUrl: string;

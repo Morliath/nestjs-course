@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export const CourseSchema = new mongoose.Schema({
-    seqNo: { type: Number, required: true },
+    seqNo: { type: Number ,  default: 0},
     url: String,
     iconUrl: String,
     courseListIcon: String,
