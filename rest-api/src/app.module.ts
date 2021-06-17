@@ -7,6 +7,8 @@ import { CoursesModule } from "./courses/courses.module";
     imports: [
         MongooseModule.forRoot(MONGO_URI, {
             useNewUrlParser: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true,
         }),
         CoursesModule,
     ]
