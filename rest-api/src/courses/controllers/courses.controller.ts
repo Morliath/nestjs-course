@@ -1,5 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpException, Param, Post, Put, UseFilters } from "@nestjs/common";
-import { ToIntegerPipe } from  "../../pipes/to-integer.pipe";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseFilters } from "@nestjs/common";
 import { Course } from "../../../../shared/course";
 import { CourseDoc } from "../models/course";
 import { CoursesRepository } from "../repositories/courses.repository";
@@ -23,10 +22,10 @@ export class CoursesController {
     @UseFilters()
     async updateCourse(
         @Param("courseId") courseId: string,
-        @Body("seqNo", ToIntegerPipe) seqNo: number,
+        @Body("seqNo", ParseIntPipe) seqNo: number,
         @Body() changes: Partial<Course>): Promise<CourseDoc> {
 
-        if(changes._id){
+        if (changes._id) {
             throw new BadRequestException("Update course id not allowed");
         }
 
