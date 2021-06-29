@@ -9,7 +9,7 @@ export class CoursesController {
     constructor(private coursesRepository: CoursesRepository) { }
 
     @Post()
-    async createCourse(@Body() course: Partial<CourseDoc>): Promise<CourseDoc> {
+    async createCourse(@Body() course: CourseDoc): Promise<CourseDoc> {
         return this.coursesRepository.addCourse(course);
     }
 
