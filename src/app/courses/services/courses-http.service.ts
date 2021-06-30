@@ -29,7 +29,7 @@ export class CoursesHttpService {
         courseId:string,
         pageNumber = 0, pageSize = 3):  Observable<Lesson[]> {
 
-        return this.http.get<Lesson[]>('/api/lessons', {
+        return this.http.get<Lesson[]>('/api/v1/lessons', {
             params: new HttpParams()
                 .set('courseId', courseId)
                 .set('sortOrder', 'asc')
